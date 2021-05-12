@@ -1,0 +1,50 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: php
+  labels:
+    tier: backend
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      {{/*      {{- include "nginx-php.selectorLabels" . | nindent 6 }}*/}}
+      app: php
+      tier: backend
+  template:
+    metadata:
+      labels:
+        app: php
+        tier: backend
+    spec:
+      volumes:
+        - name: task-pv-storage
+          persistentVolumeClaim:
+            claimName: task-pv-claim
+        - name: tz
+          configMap:
+            name: tz
+      containers:
+        - name: php
+          image: php:7-fpm
+          volumeMounts:
+            - name: task-pv-storage
+              mountPath: "/code"
+          ports:
+            - containerPort: 9000
+          env:
+            - name: TZ
+              value: Asia/Ho_Chi_Minh
+      initContainers:
+        - name: install
+          image: busybox
+          volumeMounts:
+            - name: task-pv-storage
+              mountPath: "/code"
+          {{/*            - name: tz*/}}
+          {{/*              mountPath: /etc/localtime*/}}
+          command:
+            - wget
+            - "-O"
+            - "/code/index.php"
+            - https://raw.githubusercontent.com/do-community/php-kubernetes/master/index.php
