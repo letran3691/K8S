@@ -2,8 +2,11 @@
 `https://helm.sh/docs/intro/install/`
 
 edit coredns
+
 `kubectl -n kube-system edit configmap/coredns`
-`Corefile: |
+
+`data:
+  Corefile: |
     .:53 {
         errors
         health {
@@ -12,7 +15,7 @@ edit coredns
         ready
         hosts {
            192.168.1.65 node1
-	       192.168.1.67 node2
+           192.168.1.67 node2
            192.168.1.24 node3
            192.168.1.226 node4
            fallthrough
@@ -28,7 +31,7 @@ edit coredns
         loop
         reload
         loadbalance
-     }  
+     } 
 `
 
 # Config manager storage 
@@ -72,7 +75,7 @@ deploy KubeSphere console
 
 `kubectl logs -n kubesphere-system $(kubectl get pod -n kubesphere-system -l app=ks-install -o jsonpath='{.items[0].metadata.name}') -f`
 
-deploy dashboard k8s
+# deploy dashboard k8s
 
 `kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.2.0/aio/deploy/recommended.yaml`
 
@@ -88,7 +91,7 @@ get token login dashboard
 
 
 
-install metallb
+# install metallb
 https://metallb.universe.tf/installation/
 
 
