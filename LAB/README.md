@@ -80,13 +80,14 @@ add repo provider NFS
 
 
 ## static NFS provisioner
-    trong K8s không có khái niệm nào là static NFS provisioner tuy nhiên mình gọi vậy cho đơn giản. Các bạn cứ hiểu đơng giản là với static NFS provisioner này thì các PV và PVC các bạn sẽ phải tạo thủ công
+
+   Trong K8s không có khái niệm nào là static NFS provisioner tuy nhiên mình gọi vậy cho đơn giản. Các bạn cứ hiểu đơng giản là với static NFS provisioner này thì các PV và PVC các bạn sẽ phải tạo thủ công
 
     helm install nfs stable/nfs-client-provisioner --set nfs.server=192.168.1.x --set nfs.path=/data/NFS/ --set storageClass.name=nfs-client,storageClass.reclaimPolicy=Retain
 
 ## Dynamic NFS provisioner
 
-    Dynamic NFS provisioner sẽ giúp tự động tạo ra các PV và PVC
+   Dynamic NFS provisioner sẽ giúp tự động tạo ra các PV và PVC
     
     helm repo add nfs-subdir-external-provisioner https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/
     helm repo update
@@ -94,11 +95,11 @@ add repo provider NFS
         --set nfs.server=192.168.1.30 \
         --set nfs.path=/data/NFS
 
-kiểm tra storage default đã tồn tại hay chưa
+Kiểm tra storage default đã tồn tại hay chưa
 
     kubectl get storageclass
 
-nếu chưa có thì set default storageclass bằng lệnh dưới
+Nếu chưa có thì set default storageclass bằng lệnh dưới
 
     kubectl patch storageclass nfs-client -p '{"metadata": {"annotations":{"storageclass.kubernetes.io/is-default-class":"true"}}}'
 
@@ -111,22 +112,22 @@ Kiểm tra lại
 
     kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.2.0/aio/deploy/recommended.yaml
 
-expose port
+Expose port
 
     kubectl -n kubernetes-dashboard edit service kubernetes-dashboard
     
-tìm đến dòng 34 và sửa lại 
+Tìm đến dòng 34 và sửa lại 
 
     type:  ClusterIP thành type: NodePort
 
-get token login dashboard
+Get token login dashboard
 
     kubectl -n kube-system describe $(kubectl -n kube-system get secret -n kube-system -o name | grep namespace) | grep token:
     
 
 Cài đặt KubeSphere
 
-các bạn cứ hiểu đơn giản KubeSphere giống như dashboard của K8S vậy, nhưng nó được tích hợp và hỗ trợ nhiều thứ hơn.
+Các bạn cứ hiểu đơn giản KubeSphere giống như dashboard của K8S vậy, nhưng nó được tích hợp và hỗ trợ nhiều thứ hơn.
 
 ![0_7R0fY_FNk4BN8uKf](https://user-images.githubusercontent.com/19284401/133020207-b231b875-6969-4f7b-a7fd-039769032030.png)
 
@@ -136,7 +137,7 @@ các bạn cứ hiểu đơn giản KubeSphere giống như dashboard của K8S 
     
     kubectl logs -n kubesphere-system $(kubectl get pod -n kubesphere-system -l app=ks-install -o jsonpath='{.items[0].metadata.name}') -f
 
-# install metallb
+# Install metallb
 
     helm repo add metallb https://metallb.github.io/metallb
     helm repo update
@@ -257,6 +258,7 @@ Test
     kubectl apply -f https://github.com/letran3691/K8S/releases/download/hellopod/test.yaml   
         
     
+![2021-09-13_12h42_24](https://user-images.githubusercontent.com/19284401/133030134-c1466688-2312-41aa-825d-4fa8a8b5eaa5.gif)
     
         
 
