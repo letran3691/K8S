@@ -254,18 +254,7 @@ Dòng 9 và dòng 12 sửa thành 500m
 
 Test
 
-    cat <<EOF | kubectl apply -f -                                                    
-    apiVersion: v1
-    kind: Pod
-    metadata:
-     name: hellopod
-    spec:
-     containers:
-     - name: count
-       image: busybox
-       args: [/bin/sh, -c,
-               'i=0; while true; do echo "$i: Hello from the inside"; i=$((i+1)); sleep 1; done']
-    EOF        
+    kubectl apply -f https://github.com/letran3691/K8S/releases/download/hellopod/test.yaml   
         
     
     
