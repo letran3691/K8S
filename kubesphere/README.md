@@ -220,6 +220,10 @@ truy cập thử vào IP LoadBalancer
 
 ![image](https://user-images.githubusercontent.com/19284401/133024584-54cae358-f25f-4ae6-bef8-72b43265b7f7.png)
 
+FLUENT
+
+    curl -LO https://raw.githubusercontent.com/letran3691/K8S/main/kubesphere/fluentd-ds-rbac.yaml
+
     kubectl create -f fluentd-ds-rbac.yaml
     
 Ktra lại
@@ -227,6 +231,10 @@ Ktra lại
     kubectl -n kube-system get all -l=k8s-app=fluentd-logging -o wide
     
 ![image](https://user-images.githubusercontent.com/19284401/133024271-6fec962f-364e-45ec-809b-083ee9c2c53e.png)
+
+Kibana
+
+
         
         
     
