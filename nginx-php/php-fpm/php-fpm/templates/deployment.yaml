@@ -21,9 +21,9 @@ spec:
         - name: task-pv-storage
           persistentVolumeClaim:
             claimName: task-pv-claim
-        - name: tz
-          configMap:
-            name: tz
+{{/*        - name: tz*/}}
+{{/*          configMap:*/}}
+{{/*            name: tz*/}}
       containers:
         - name: php
           image: php:7-fpm

@@ -43,9 +43,6 @@ spec:
         - name: confi-d
           configMap:
             name: configd
-{{/*        - name: tz*/}}
-{{/*          configMap:*/}}
-{{/*            name: tz*/}}
       containers:
         - name: {{ .Chart.Name }}
           securityContext:
