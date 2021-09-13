@@ -234,8 +234,38 @@ Ktra lại
 
 Kibana
 
+    curl -LO https://raw.githubusercontent.com/letran3691/K8S/main/kubesphere/kivalues.yaml
+    
+    vi kivalues.yaml
+    
+Dòng 2 thay địa chỉ IP LoadBalancer của elasticsearch
 
-        
+Dòng 9 và dòng 12 sửa thành 500m
+
+![image](https://user-images.githubusercontent.com/19284401/133026790-07c72efe-a5f6-481d-b9fa-17dbb57da668.png)
+
+
+    helm install kibana --version 7.13.0 elastic/kibana -f kivalues.yaml
+    
+    kubectl get pod,deploy,svc,pv,pvc -o wide
+    
+![image](https://user-images.githubusercontent.com/19284401/133027106-7a1b613d-a0fd-406c-b6dc-383135ee4e1b.png)
+    
+
+Test
+
+    cat <<EOF | kubectl apply -f -                                                    
+    apiVersion: v1
+    kind: Pod
+    metadata:
+     name: hellopod
+    spec:
+     containers:
+     - name: count
+       image: busybox
+       args: [/bin/sh, -c,
+               'i=0; while true; do echo "$i: Hello from the inside"; i=$((i+1)); sleep 1; done']
+    EOF        
         
     
     
