@@ -1,10 +1,23 @@
+**Yêu cầu phần cứng**
+
+- Máy thật tối thiểu 24G RAM
+
+- Các NODE trong cụm cluster (máy ảo vmware)
+
+   - Cấu hình tối thiểu mỗi node
+   
+   - Gồm 4 node mỗi node 2core, 4-6G RAM
+   
+   - 1 node NFS server
+
+
 # install helm
     https://helm.sh/docs/intro/install/
     
     curl -LO https://get.helm.sh/helm-v3.7.0-rc.3-linux-amd64.tar.gz
     tar -xvf helm-v3.7.0-rc.3-linux-amd64.tar.gz && cp linux-amd64/helm /usr/local/bin/
 
-edit coredns
+# edit coredns
 
     kubectl -n kube-system edit configmap/coredns
 
@@ -39,7 +52,7 @@ edit coredns
 
 # Config manager storage 
 
-- Cài đặt NFS server 
+## Cài đặt NFS server 
 
         yum -y install nfs-utils
         
@@ -57,7 +70,7 @@ edit coredns
         
 Có thể tìm hiểu <a href="https://www.server-world.info/en/note?os=CentOS_7&p=nfs&f=1" rel="nofollow">tại đây<a>.
 
-- Cài đặt NFS client trên các node cluster 
+## Cài đặt NFS client trên các node cluster 
         
         yum -y install nfs-utils
         
@@ -71,6 +84,8 @@ Có thể tìm hiểu <a href="https://www.server-world.info/en/note?os=CentOS_7
 tham khảo <a href="https://www.server-world.info/en/note?os=CentOS_7&p=nfs&f=2" rel="nofollow">tại đây<a>.
 
  _- các bạn nên mount thử sau khi cấu hình NFS cho chắc._
+
+## Cài đặt NFS provider
  
 default k8s can't provider NFS server. We're need install NFS provider
 add repo provider NFS
@@ -79,13 +94,13 @@ add repo provider NFS
     helm repo update
 
 
-## static NFS provisioner
+### static NFS provisioner
 
    Trong K8s không có khái niệm nào là static NFS provisioner tuy nhiên mình gọi vậy cho đơn giản. Các bạn cứ hiểu đơng giản là với static NFS provisioner này thì các PV và PVC các bạn sẽ phải tạo thủ công
 
     helm install nfs stable/nfs-client-provisioner --set nfs.server=192.168.1.x --set nfs.path=/data/NFS/ --set storageClass.name=nfs-client,storageClass.reclaimPolicy=Retain
 
-## Dynamic NFS provisioner
+### Dynamic NFS provisioner
 
    Dynamic NFS provisioner sẽ giúp tự động tạo ra các PV và PVC
     
@@ -125,7 +140,7 @@ Get token login dashboard
     kubectl -n kube-system describe $(kubectl -n kube-system get secret -n kube-system -o name | grep namespace) | grep token:
     
 
-Cài đặt KubeSphere
+# Cài đặt KubeSphere
 
 Các bạn cứ hiểu đơn giản KubeSphere giống như dashboard của K8S vậy, nhưng nó được tích hợp và hỗ trợ nhiều thứ hơn.
 
@@ -137,7 +152,7 @@ Các bạn cứ hiểu đơn giản KubeSphere giống như dashboard của K8S 
     
     kubectl logs -n kubesphere-system $(kubectl get pod -n kubesphere-system -l app=ks-install -o jsonpath='{.items[0].metadata.name}') -f
 
-# Install metallb
+# Cài đặt metallb
 
     helm repo add metallb https://metallb.github.io/metallb
     helm repo update
@@ -174,8 +189,9 @@ truy cập thử vào ip LoadBalancer xem có được không. nếu mọi thứ
 
 
     
-deploy EFK
+# Cài đặt EFK
 
+## Elastic
     helm repo add elastic https://helm.elastic.co
     helm repo update
     
@@ -221,7 +237,7 @@ truy cập thử vào IP LoadBalancer
 
 ![image](https://user-images.githubusercontent.com/19284401/133024584-54cae358-f25f-4ae6-bef8-72b43265b7f7.png)
 
-FLUENT
+## Fluent
 
     curl -LO https://raw.githubusercontent.com/letran3691/K8S/main/kubesphere/fluentd-ds-rbac.yaml
 
@@ -233,7 +249,7 @@ Ktra lại
     
 ![image](https://user-images.githubusercontent.com/19284401/133024271-6fec962f-364e-45ec-809b-083ee9c2c53e.png)
 
-Kibana
+## Kibana
 
     curl -LO https://raw.githubusercontent.com/letran3691/K8S/main/kubesphere/kivalues.yaml
     
@@ -253,12 +269,16 @@ Dòng 9 và dòng 12 sửa thành 500m
 ![image](https://user-images.githubusercontent.com/19284401/133027106-7a1b613d-a0fd-406c-b6dc-383135ee4e1b.png)
     
 
-Test
+## Test
 
-    kubectl apply -f https://github.com/letran3691/K8S/releases/download/hellopod/test.yaml   
-        
+    kubectl apply -f https://github.com/letran3691/K8S/releases/download/hellopod/test.yaml
     
-![2021-09-13_12h42_24](https://user-images.githubusercontent.com/19284401/133030134-c1466688-2312-41aa-825d-4fa8a8b5eaa5.gif)
     
-        
+![1](https://user-images.githubusercontent.com/19284401/133058054-8f7b8f33-a534-4ca6-b2fb-70eee917ba3a.gif)
 
+![2_1](https://user-images.githubusercontent.com/19284401/133058135-1b194fd5-68e9-4a96-a5a7-007e00b1979b.gif)
+
+![3_1](https://user-images.githubusercontent.com/19284401/133058196-f1e311cc-198f-4061-80ec-3bea9b76f207.gif)
+
+
+       
