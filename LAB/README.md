@@ -278,11 +278,11 @@ Dòng 9 và dòng 12 sửa thành 500m
     kubectl apply -f https://github.com/letran3691/K8S/releases/download/hellopod/test.yaml
     
     
-![1](https://user-images.githubusercontent.com/19284401/133058054-8f7b8f33-a534-4ca6-b2fb-70eee917ba3a.gif)
+![1](https://user-images.githubusercontent.com/19284401/133058054-8f7b8f33-a534-4ca6-b2fb-70eee917ba3a.gif) ![2_1](https://user-images.githubusercontent.com/19284401/133058135-1b194fd5-68e9-4a96-a5a7-007e00b1979b.gif) ![3_1](https://user-images.githubusercontent.com/19284401/133058196-f1e311cc-198f-4061-80ec-3bea9b76f207.gif)
 
-![2_1](https://user-images.githubusercontent.com/19284401/133058135-1b194fd5-68e9-4a96-a5a7-007e00b1979b.gif)
 
-![3_1](https://user-images.githubusercontent.com/19284401/133058196-f1e311cc-198f-4061-80ec-3bea9b76f207.gif)
+
+
 
 
        
