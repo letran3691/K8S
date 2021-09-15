@@ -66,9 +66,9 @@ lỗi failed to parse kernel config: unable to load kernel module: "configs",
 
 ### [VI: Cài đặt metallb](#VI)
 
-### [VII: Cài đặt Cài đặt EFK](#VI)
+### [VII: Cài đặt Cài đặt EFK](#VII)
 
-### [VIII: Cài đặt Cài đặt ELK](#VII)
+### [VIII: Cài đặt Cài đặt ELK](#VIII)
 
 
 
