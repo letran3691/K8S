@@ -1,3 +1,41 @@
+OS: Centos 7.
+K8S: v1.22.
+DOCKER-CE: v20.10.6.
+kube-flannel: v0.14 hoặc cao hơn.
+
+kubeadm init: lỗi "waiting for the kubelet to perform the tls bootstrap... kubelet-check initial timeout of 40s passed"
+
+
+    cat > /etc/docker/daemon.json <<EOF
+    {
+      "exec-opts": ["native.cgroupdriver=systemd"],
+      "log-driver": "json-file",
+      "log-opts": {
+        "max-size": "100m"
+      },
+      "storage-driver": "overlay2",
+      "storage-opts": [
+        "overlay2.override_kernel_check=true"
+      ]
+    }
+    EOF
+    
+    mkdir -p /etc/systemd/system/docker.service.d
+
+    systemctl daemon-reload
+    systemctl restart docker
+ 
+lỗi failed to parse kernel config: unable to load kernel module: "configs",
+
+    [root@node4 ~]# ls /boot/config*
+    /boot/config-3.10.0-1160.42.2.el7.x86_64
+    [root@node4 ~]# uname -r
+    3.10.0-693.2.2.el7.x86_64
+    [root@node4 ~]# cd /boot
+    [root@node4 boot]# mv config-3.10.0-1160.42.2.el7.x86_64 config-3.10.0-693.2.2.el7.x86_64
+
+
+
 **Yêu cầu phần cứng**
 
 - Máy thật tối thiểu 24G RAM
@@ -9,6 +47,8 @@
    - Gồm 4 node mỗi node 2core, 4-6G RAM
    
    - 1 node NFS server
+
+
 
 
 # install helm
@@ -153,6 +193,7 @@ Các bạn cứ hiểu đơn giản KubeSphere giống như dashboard của K8S 
     kubectl logs -n kubesphere-system $(kubectl get pod -n kubesphere-system -l app=ks-install -o jsonpath='{.items[0].metadata.name}') -f
 
 # Cài đặt metallb
+    - **Chú ý thay đúng dải IP**    
 
     helm repo add metallb https://metallb.github.io/metallb
     helm repo update
@@ -168,9 +209,7 @@ Các bạn cứ hiểu đơn giản KubeSphere giống như dashboard của K8S 
     END
 
     helm install metallb metallb/metallb -f meta_values.yaml
-    
-**Chú ý thay đúng dải IP**    
-    
+        
     
 Test thử metallb
 
@@ -190,6 +229,7 @@ truy cập thử vào ip LoadBalancer xem có được không. nếu mọi thứ
 
     
 # Cài đặt EFK
+    - Cần deploy metallb trước khi deploy EFK
 
 ## Elastic
     helm repo add elastic https://helm.elastic.co
@@ -278,11 +318,127 @@ Dòng 9 và dòng 12 sửa thành 500m
     kubectl apply -f https://github.com/letran3691/K8S/releases/download/hellopod/test.yaml
     
     
-![1](https://user-images.githubusercontent.com/19284401/133058054-8f7b8f33-a534-4ca6-b2fb-70eee917ba3a.gif) ![2_1](https://user-images.githubusercontent.com/19284401/133058135-1b194fd5-68e9-4a96-a5a7-007e00b1979b.gif) ![3_1](https://user-images.githubusercontent.com/19284401/133058196-f1e311cc-198f-4061-80ec-3bea9b76f207.gif)
+![1](https://user-images.githubusercontent.com/19284401/133058054-8f7b8f33-a534-4ca6-b2fb-70eee917ba3a.gif)
+
+![2_1](https://user-images.githubusercontent.com/19284401/133058135-1b194fd5-68e9-4a96-a5a7-007e00b1979b.gif)
+
+![3_1](https://user-images.githubusercontent.com/19284401/133058196-f1e311cc-198f-4061-80ec-3bea9b76f207.gif)
+
+
+# ELK
+    - Cần deploy metallb trước khi deploy ELK
+
+
+## Elastic
+
+    helm repo add elastic https://helm.elastic.co
+    helm repo update
+
+    mkdir ELK && cd ELK
+
+    helm pull --version 7.8.0 elastic/elasticsearch && tar -xvf elasticsearch-7.8.0.tgz
+
+    vi elasticsearch/values.yaml
+  Tìm đến dòng 95 sửa 30Gi thành 3i  
+
+![image](https://user-images.githubusercontent.com/19284401/133391383-83b73d38-6cc7-4e1c-9d4c-cec8106fd7af.png)
+
+    helm install elasticsearch elasticsearch -f esvalues.yaml
+
+Ktra lai
+
+    kubectl get pod,deploy,svc,pv,pvc -o wide
+
+![image](https://user-images.githubusercontent.com/19284401/133392800-47fa85e6-8816-4cdd-9b0e-a33a0b80fcdb.png)
+
+## FileBeat
+
+    helm pull --version 7.10.0 elastic/filebeat && tar -xvf filebeat-7.10.0.tgz
+
+    vim filebeat/values.yaml
+
+Tìm đến dòng 111 sửa 1000m  thành 500m
+
+![image](https://user-images.githubusercontent.com/19284401/133395492-7a19a455-bf36-4c68-a771-a28c3e51e812.png)
+
+    helm install filebeat filebeat
+
+
+## kibana
+
+    curl -LO https://github.com/letran3691/K8S/blob/main/LAB/kivalues.yaml
+
+    vim kivalues.yaml
+
+Đến dòng 2 đổi thành IP LoadBalancer của Elastic
+
+Đến dòng 5 đổi thành imageTag: "7.8.0"
+
+![image](https://user-images.githubusercontent.com/19284401/133396574-84118b43-6f47-4ce6-9570-e0b756e2b29e.png)
+
+    helm install --version 7.8.0 kibana elastic/kibana -f kivalues.yaml
+
+sau khi deploy xong nhớ ktra lại
+
+## Metricbeat
+
+###  metrics-server
+    helm repo add metrics-server https://kubernetes-sigs.github.io/metrics-server/
+
+    helm pull metrics-server/metrics-server && tar -xvf metrics-server-*
+
+    vim metrics-server/values.yaml
+
+   tìm đến dòng 76 và thêm vào
+
+    - --kubelet-insecure-tls
+    
+![2021-09-15_16h50_25](https://user-images.githubusercontent.com/19284401/133420431-e90b7e3d-b240-4e9d-99a6-a7e181204a90.png)
+
+    helm install metrics-server metrics-server
+
+### metricbeat
+
+    helm pull --version 7.8.0 elastic/metricbeat && tar -xvf metricbeat-7.8.0.tgz
+
+    vim metricbeat/values.yaml
+
+Tìm đến dòng 89 sửa CPU thành 500m
+
+Tìm đến dòng 141 sửa CPU thành 500m
+
+    helm install metricbeat metricbeat
+
+nếu bạn nào bị báo lỗi (Mình đang dùng K8S v1.22.1, nên phát sinh ra lỗi này)
+
+Error: INSTALLATION FAILED: unable to build kubernetes objects from release manifest: [unable to recognize "": no matches for kind "ClusterRole" in version "rbac.authorization.k8s.io/v1beta1", unable to recognize "": no matches for kind "ClusterRoleBinding" in version "rbac.authorization.k8s.io/v1beta1"]
+
+thì hãy sửa lại toàn bộ các apiVersion: rbac.authorization.k8s.io/v1beta1 thành apiVersion: rbac.authorization.k8s.io/v1
+
+### ### metricbeat dashboard
+
+    curl -L -O https://artifacts.elastic.co/downloads/beats/metricbeat/metricbeat-7.8.0-x86_64.rpm
+
+    rpm -vi metricbeat-7.8.0-x86_64.rpm
+
+    vim /etc/metricbeat/metricbeat.yml
+
+dòng 67 đổi thành ip LoadBalancer của Kibana
+dòng 94 đổi thành ip LoadBalancer của Elastic
+
+![2021-09-15_16h25_27](https://user-images.githubusercontent.com/19284401/133421104-fb5ee270-21c2-4ec9-a08b-3b50bde457ca.png)
+
+
+    metricbeat modules enable kubernetes
+
+    metricbeat setup dashboard
+
+![2021-09-15_17h32_38](https://user-images.githubusercontent.com/19284401/133421839-817cee0f-caa8-4f1e-a70c-ce3744d0458a.png)
+
+![1](https://user-images.githubusercontent.com/19284401/133421971-700bfe7f-9183-47b0-9eb6-774743aa145c.gif)
+![2](https://user-images.githubusercontent.com/19284401/133422399-8be7c821-1bc3-4f6f-8899-87d69f6077f3.gif)
 
 
 
 
 
-
-       
