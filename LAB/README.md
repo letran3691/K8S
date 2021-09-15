@@ -1,6 +1,9 @@
 OS: Centos 7.
+
 K8S: v1.22.
+
 DOCKER-CE: v20.10.6.
+
 kube-flannel: v0.14 hoặc cao hơn.
 
 kubeadm init: lỗi "waiting for the kubelet to perform the tls bootstrap... kubelet-check initial timeout of 40s passed"
@@ -49,15 +52,34 @@ lỗi failed to parse kernel config: unable to load kernel module: "configs",
    - 1 node NFS server
 
 
+## MENU
+
+### [I: Cài đặt  helm](#I)
+
+### [II: Sửa coredns](#II)
+
+### [III: Cài đặt storageclass](#III)
+
+### [IV: Dashboard k8s](#IV)
+
+### [V: Cài đặt KubeSphere](#V)
+
+### [VI: Cài đặt Cài đặt EFK](#VI)
+
+### [VII: Cài đặt Cài đặt ELK](#VII)
 
 
-# install helm
+
+------------------
+
+## <a name="I"><a/>**I Cài đặt Helm**
+
     https://helm.sh/docs/intro/install/
     
     curl -LO https://get.helm.sh/helm-v3.7.0-rc.3-linux-amd64.tar.gz
     tar -xvf helm-v3.7.0-rc.3-linux-amd64.tar.gz && cp linux-amd64/helm /usr/local/bin/
 
-# edit coredns
+## <a name="II"><a/>**II Sửa coredns**
 
     kubectl -n kube-system edit configmap/coredns
 
@@ -90,9 +112,10 @@ lỗi failed to parse kernel config: unable to load kernel module: "configs",
          } 
 
 
-# Config manager storage 
 
-## Cài đặt NFS server 
+## <a name="III"><a/>**III cài đặt storageclass**
+
+##### Cài đặt NFS server 
 
         yum -y install nfs-utils
         
@@ -110,7 +133,7 @@ lỗi failed to parse kernel config: unable to load kernel module: "configs",
         
 Có thể tìm hiểu <a href="https://www.server-world.info/en/note?os=CentOS_7&p=nfs&f=1" rel="nofollow">tại đây<a>.
 
-## Cài đặt NFS client trên các node cluster 
+##### Cài đặt NFS client trên các node cluster 
         
         yum -y install nfs-utils
         
@@ -125,7 +148,7 @@ tham khảo <a href="https://www.server-world.info/en/note?os=CentOS_7&p=nfs&f=2
 
  _- các bạn nên mount thử sau khi cấu hình NFS cho chắc._
 
-## Cài đặt NFS provider
+##### Cài đặt NFS provider
  
 default k8s can't provider NFS server. We're need install NFS provider
 add repo provider NFS
@@ -134,13 +157,13 @@ add repo provider NFS
     helm repo update
 
 
-### static NFS provisioner
+##### static NFS provisioner
 
    Trong K8s không có khái niệm nào là static NFS provisioner tuy nhiên mình gọi vậy cho đơn giản. Các bạn cứ hiểu đơng giản là với static NFS provisioner này thì các PV và PVC các bạn sẽ phải tạo thủ công
 
     helm install nfs stable/nfs-client-provisioner --set nfs.server=192.168.1.x --set nfs.path=/data/NFS/ --set storageClass.name=nfs-client,storageClass.reclaimPolicy=Retain
 
-### Dynamic NFS provisioner
+##### Dynamic NFS provisioner
 
    Dynamic NFS provisioner sẽ giúp tự động tạo ra các PV và PVC
     
@@ -162,8 +185,8 @@ Kiểm tra lại
 
     kubectl get storageclass
     
-    
-# deploy dashboard k8s
+
+## <a name="IV"><a/>**IV dashboard k8s**
 
     kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.2.0/aio/deploy/recommended.yaml
 
@@ -180,7 +203,8 @@ Get token login dashboard
     kubectl -n kube-system describe $(kubectl -n kube-system get secret -n kube-system -o name | grep namespace) | grep token:
     
 
-# Cài đặt KubeSphere
+## <a name="V"><a/>**V Cài đặt KubeSphere**
+
 
 Các bạn cứ hiểu đơn giản KubeSphere giống như dashboard của K8S vậy, nhưng nó được tích hợp và hỗ trợ nhiều thứ hơn.
 
@@ -192,7 +216,8 @@ Các bạn cứ hiểu đơn giản KubeSphere giống như dashboard của K8S 
     
     kubectl logs -n kubesphere-system $(kubectl get pod -n kubesphere-system -l app=ks-install -o jsonpath='{.items[0].metadata.name}') -f
 
-# Cài đặt metallb
+## <a name="VI"><a/>**VI Cài đặt metallb**
+
     - **Chú ý thay đúng dải IP**    
 
     helm repo add metallb https://metallb.github.io/metallb
@@ -227,11 +252,12 @@ truy cập thử vào ip LoadBalancer xem có được không. nếu mọi thứ
 ![image](https://user-images.githubusercontent.com/19284401/133022223-3b0900a0-8059-4c3d-b3b6-ae90bd29cb3a.png)
 
 
-    
-# Cài đặt EFK
+## <a name="VII"><a/>**VII Cài đặt Cài đặt EFK**    
+
     - Cần deploy metallb trước khi deploy EFK
 
-## Elastic
+##### Elastic
+
     helm repo add elastic https://helm.elastic.co
     helm repo update
     
@@ -277,7 +303,7 @@ truy cập thử vào IP LoadBalancer
 
 ![image](https://user-images.githubusercontent.com/19284401/133024584-54cae358-f25f-4ae6-bef8-72b43265b7f7.png)
 
-## Fluent
+##### Fluent
 
     curl -LO https://raw.githubusercontent.com/letran3691/K8S/main/kubesphere/fluentd-ds-rbac.yaml
     
@@ -293,7 +319,7 @@ Ktra lại
     
 ![image](https://user-images.githubusercontent.com/19284401/133024271-6fec962f-364e-45ec-809b-083ee9c2c53e.png)
 
-## Kibana
+##### Kibana
 
     curl -LO https://raw.githubusercontent.com/letran3691/K8S/main/kubesphere/kivalues.yaml
     
@@ -313,7 +339,7 @@ Dòng 9 và dòng 12 sửa thành 500m
 ![image](https://user-images.githubusercontent.com/19284401/133027106-7a1b613d-a0fd-406c-b6dc-383135ee4e1b.png)
     
 
-## Test
+##### Test
 
     kubectl apply -f https://github.com/letran3691/K8S/releases/download/hellopod/test.yaml
     
@@ -324,12 +350,11 @@ Dòng 9 và dòng 12 sửa thành 500m
 
 ![3_1](https://user-images.githubusercontent.com/19284401/133058196-f1e311cc-198f-4061-80ec-3bea9b76f207.gif)
 
+## <a name="VII"><a/>**VII Cài đặt Cài đặt ELK**  
 
-# ELK
     - Cần deploy metallb trước khi deploy ELK
 
-
-## Elastic
+##### Elastic
 
     helm repo add elastic https://helm.elastic.co
     helm repo update
@@ -339,7 +364,7 @@ Dòng 9 và dòng 12 sửa thành 500m
     helm pull --version 7.8.0 elastic/elasticsearch && tar -xvf elasticsearch-7.8.0.tgz
 
     vi elasticsearch/values.yaml
-  Tìm đến dòng 95 sửa 30Gi thành 3i  
+  Tìm đến dòng 95 sửa 30Gi thành 3Gi  
 
 ![image](https://user-images.githubusercontent.com/19284401/133391383-83b73d38-6cc7-4e1c-9d4c-cec8106fd7af.png)
 
@@ -351,7 +376,7 @@ Ktra lai
 
 ![image](https://user-images.githubusercontent.com/19284401/133392800-47fa85e6-8816-4cdd-9b0e-a33a0b80fcdb.png)
 
-## FileBeat
+##### FileBeat
 
     helm pull --version 7.10.0 elastic/filebeat && tar -xvf filebeat-7.10.0.tgz
 
@@ -364,7 +389,7 @@ Tìm đến dòng 111 sửa 1000m  thành 500m
     helm install filebeat filebeat
 
 
-## kibana
+#### kibana
 
     curl -LO https://github.com/letran3691/K8S/blob/main/LAB/kivalues.yaml
 
@@ -380,9 +405,13 @@ Tìm đến dòng 111 sửa 1000m  thành 500m
 
 sau khi deploy xong nhớ ktra lại
 
-## Metricbeat
+![image](https://user-images.githubusercontent.com/19284401/133423597-5c51ee09-de48-429c-9269-252533a03781.png)
 
-###  metrics-server
+
+#### Metricbeat
+
+#### metrics-server
+
     helm repo add metrics-server https://kubernetes-sigs.github.io/metrics-server/
 
     helm pull metrics-server/metrics-server && tar -xvf metrics-server-*
@@ -397,7 +426,7 @@ sau khi deploy xong nhớ ktra lại
 
     helm install metrics-server metrics-server
 
-### metricbeat
+#### metricbeat
 
     helm pull --version 7.8.0 elastic/metricbeat && tar -xvf metricbeat-7.8.0.tgz
 
@@ -415,7 +444,7 @@ Error: INSTALLATION FAILED: unable to build kubernetes objects from release mani
 
 thì hãy sửa lại toàn bộ các apiVersion: rbac.authorization.k8s.io/v1beta1 thành apiVersion: rbac.authorization.k8s.io/v1
 
-### ### metricbeat dashboard
+#### metricbeat dashboard
 
     curl -L -O https://artifacts.elastic.co/downloads/beats/metricbeat/metricbeat-7.8.0-x86_64.rpm
 
