@@ -117,7 +117,7 @@ lỗi failed to parse kernel config: unable to load kernel module: "configs",
 
 ## <a name="III"><a/>**III: cài đặt storageclass**
 
-##### Cài đặt NFS server 
+### Cài đặt NFS server 
 
         yum -y install nfs-utils
         
@@ -135,7 +135,7 @@ lỗi failed to parse kernel config: unable to load kernel module: "configs",
         
 Có thể tìm hiểu <a href="https://www.server-world.info/en/note?os=CentOS_7&p=nfs&f=1" rel="nofollow">tại đây<a>.
 
-##### Cài đặt NFS client trên các node cluster 
+### Cài đặt NFS client trên các node cluster 
         
         yum -y install nfs-utils
         
@@ -150,7 +150,7 @@ tham khảo <a href="https://www.server-world.info/en/note?os=CentOS_7&p=nfs&f=2
 
  _- các bạn nên mount thử sau khi cấu hình NFS cho chắc._
 
-##### Cài đặt NFS provider
+### Cài đặt NFS provider
  
 default k8s can't provider NFS server. We're need install NFS provider
 add repo provider NFS
@@ -159,13 +159,13 @@ add repo provider NFS
     helm repo update
 
 
-##### Static NFS provisioner
+### Static NFS provisioner
 
    Trong K8s không có khái niệm nào là static NFS provisioner tuy nhiên mình gọi vậy cho đơn giản. Các bạn cứ hiểu đơng giản là với static NFS provisioner này thì các PV và PVC các bạn sẽ phải tạo thủ công
 
     helm install nfs stable/nfs-client-provisioner --set nfs.server=192.168.1.x --set nfs.path=/data/NFS/ --set storageClass.name=nfs-client,storageClass.reclaimPolicy=Retain
 
-##### Dynamic NFS provisioner
+### Dynamic NFS provisioner
 
    Dynamic NFS provisioner sẽ giúp tự động tạo ra các PV và PVC
     
@@ -258,7 +258,7 @@ truy cập thử vào ip LoadBalancer xem có được không. nếu mọi thứ
 
     - Cần deploy metallb trước khi deploy EFK
 
-##### Elastic
+### Elastic
 
     helm repo add elastic https://helm.elastic.co
     helm repo update
@@ -305,7 +305,7 @@ truy cập thử vào IP LoadBalancer
 
 ![image](https://user-images.githubusercontent.com/19284401/133024584-54cae358-f25f-4ae6-bef8-72b43265b7f7.png)
 
-##### Fluent
+### Fluent
 
     curl -LO https://raw.githubusercontent.com/letran3691/K8S/main/kubesphere/fluentd-ds-rbac.yaml
     
@@ -341,7 +341,7 @@ Dòng 9 và dòng 12 sửa thành 500m
 ![image](https://user-images.githubusercontent.com/19284401/133027106-7a1b613d-a0fd-406c-b6dc-383135ee4e1b.png)
     
 
-##### Test
+### Test
 
     kubectl apply -f https://github.com/letran3691/K8S/releases/download/hellopod/test.yaml
     
@@ -356,7 +356,7 @@ Dòng 9 và dòng 12 sửa thành 500m
 
     - Cần deploy metallb trước khi deploy ELK
 
-##### Elastic
+### Elastic
 
     helm repo add elastic https://helm.elastic.co
     helm repo update
@@ -378,7 +378,7 @@ Ktra lai
 
 ![image](https://user-images.githubusercontent.com/19284401/133392800-47fa85e6-8816-4cdd-9b0e-a33a0b80fcdb.png)
 
-##### FileBeat
+### FileBeat
 
     helm pull --version 7.10.0 elastic/filebeat && tar -xvf filebeat-7.10.0.tgz
 
@@ -391,7 +391,7 @@ Tìm đến dòng 111 sửa 1000m  thành 500m
     helm install filebeat filebeat
 
 
-#### kibana
+### kibana
 
     curl -LO https://github.com/letran3691/K8S/blob/main/LAB/kivalues.yaml
 
@@ -410,7 +410,7 @@ sau khi deploy xong nhớ ktra lại
 ![image](https://user-images.githubusercontent.com/19284401/133423597-5c51ee09-de48-429c-9269-252533a03781.png)
 
 
-#### Metricbeat
+### Metricbeat
 
 #### Metrics-server
 
