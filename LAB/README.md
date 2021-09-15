@@ -72,14 +72,14 @@ lỗi failed to parse kernel config: unable to load kernel module: "configs",
 
 ------------------
 
-## <a name="I"><a/>**I Cài đặt Helm**
+## <a name="I"><a/>**I: Cài đặt Helm**
 
     https://helm.sh/docs/intro/install/
     
     curl -LO https://get.helm.sh/helm-v3.7.0-rc.3-linux-amd64.tar.gz
     tar -xvf helm-v3.7.0-rc.3-linux-amd64.tar.gz && cp linux-amd64/helm /usr/local/bin/
 
-## <a name="II"><a/>**II Sửa coredns**
+## <a name="II"><a/>**II: Sửa coredns**
 
     kubectl -n kube-system edit configmap/coredns
 
@@ -113,7 +113,7 @@ lỗi failed to parse kernel config: unable to load kernel module: "configs",
 
 
 
-## <a name="III"><a/>**III cài đặt storageclass**
+## <a name="III"><a/>**III: cài đặt storageclass**
 
 ##### Cài đặt NFS server 
 
@@ -157,7 +157,7 @@ add repo provider NFS
     helm repo update
 
 
-##### static NFS provisioner
+##### Static NFS provisioner
 
    Trong K8s không có khái niệm nào là static NFS provisioner tuy nhiên mình gọi vậy cho đơn giản. Các bạn cứ hiểu đơng giản là với static NFS provisioner này thì các PV và PVC các bạn sẽ phải tạo thủ công
 
@@ -186,7 +186,7 @@ Kiểm tra lại
     kubectl get storageclass
     
 
-## <a name="IV"><a/>**IV dashboard k8s**
+## <a name="IV"><a/>**IV: Dashboard k8s**
 
     kubectl apply -f https://raw.githubusercontent.com/kubernetes/dashboard/v2.2.0/aio/deploy/recommended.yaml
 
@@ -203,7 +203,7 @@ Get token login dashboard
     kubectl -n kube-system describe $(kubectl -n kube-system get secret -n kube-system -o name | grep namespace) | grep token:
     
 
-## <a name="V"><a/>**V Cài đặt KubeSphere**
+## <a name="V"><a/>**V: Cài đặt KubeSphere**
 
 
 Các bạn cứ hiểu đơn giản KubeSphere giống như dashboard của K8S vậy, nhưng nó được tích hợp và hỗ trợ nhiều thứ hơn.
@@ -216,7 +216,7 @@ Các bạn cứ hiểu đơn giản KubeSphere giống như dashboard của K8S 
     
     kubectl logs -n kubesphere-system $(kubectl get pod -n kubesphere-system -l app=ks-install -o jsonpath='{.items[0].metadata.name}') -f
 
-## <a name="VI"><a/>**VI Cài đặt metallb**
+## <a name="VI"><a/>**VI: Cài đặt metallb**
 
     - **Chú ý thay đúng dải IP**    
 
@@ -252,7 +252,7 @@ truy cập thử vào ip LoadBalancer xem có được không. nếu mọi thứ
 ![image](https://user-images.githubusercontent.com/19284401/133022223-3b0900a0-8059-4c3d-b3b6-ae90bd29cb3a.png)
 
 
-## <a name="VII"><a/>**VII Cài đặt Cài đặt EFK**    
+## <a name="VII"><a/>**VII: Cài đặt Cài đặt EFK**    
 
     - Cần deploy metallb trước khi deploy EFK
 
@@ -350,7 +350,7 @@ Dòng 9 và dòng 12 sửa thành 500m
 
 ![3_1](https://user-images.githubusercontent.com/19284401/133058196-f1e311cc-198f-4061-80ec-3bea9b76f207.gif)
 
-## <a name="VII"><a/>**VII Cài đặt Cài đặt ELK**  
+## <a name="VII"><a/>**VII: Cài đặt ELK**  
 
     - Cần deploy metallb trước khi deploy ELK
 
@@ -410,7 +410,7 @@ sau khi deploy xong nhớ ktra lại
 
 #### Metricbeat
 
-#### metrics-server
+#### Metrics-server
 
     helm repo add metrics-server https://kubernetes-sigs.github.io/metrics-server/
 
@@ -426,7 +426,7 @@ sau khi deploy xong nhớ ktra lại
 
     helm install metrics-server metrics-server
 
-#### metricbeat
+#### Metricbeat
 
     helm pull --version 7.8.0 elastic/metricbeat && tar -xvf metricbeat-7.8.0.tgz
 
@@ -444,7 +444,7 @@ Error: INSTALLATION FAILED: unable to build kubernetes objects from release mani
 
 thì hãy sửa lại toàn bộ các apiVersion: rbac.authorization.k8s.io/v1beta1 thành apiVersion: rbac.authorization.k8s.io/v1
 
-#### metricbeat dashboard
+#### Metricbeat Dashboard
 
     curl -L -O https://artifacts.elastic.co/downloads/beats/metricbeat/metricbeat-7.8.0-x86_64.rpm
 
