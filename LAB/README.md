@@ -64,9 +64,11 @@ lỗi failed to parse kernel config: unable to load kernel module: "configs",
 
 ### [V: Cài đặt KubeSphere](#V)
 
-### [VI: Cài đặt Cài đặt EFK](#VI)
+### [VI: Cài đặt metallb](#VI)
 
-### [VII: Cài đặt Cài đặt ELK](#VII)
+### [VII: Cài đặt Cài đặt EFK](#VI)
+
+### [VIII: Cài đặt Cài đặt ELK](#VII)
 
 
 
@@ -350,7 +352,7 @@ Dòng 9 và dòng 12 sửa thành 500m
 
 ![3_1](https://user-images.githubusercontent.com/19284401/133058196-f1e311cc-198f-4061-80ec-3bea9b76f207.gif)
 
-## <a name="VII"><a/>**VII: Cài đặt ELK**  
+## <a name="VIII"><a/>**VIII: Cài đặt ELK**  
 
     - Cần deploy metallb trước khi deploy ELK
 
