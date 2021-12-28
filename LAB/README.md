@@ -172,8 +172,8 @@ add repo provider NFS
     helm repo add nfs-subdir-external-provisioner https://kubernetes-sigs.github.io/nfs-subdir-external-provisioner/
     helm repo update
     helm install nfs-subdir-external-provisioner nfs-subdir-external-provisioner/nfs-subdir-external-provisioner \
-        --set nfs.server=192.168.1.30 \
-        --set nfs.path=/data/NFS
+    --set nfs.server=192.168.16.50 \
+    --set nfs.path=/nfs/data
 
 Kiểm tra storage default đã tồn tại hay chưa
 
