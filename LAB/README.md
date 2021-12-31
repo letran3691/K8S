@@ -323,7 +323,7 @@ Ktra lại
 
 ##### Kibana
 
-    curl -LO https://raw.githubusercontent.com/letran3691/K8S/main/kubesphere/kivalues.yaml
+    curl -LO https://raw.githubusercontent.com/letran3691/K8S/main/LAB/kivalues.yaml
     
     vi kivalues.yaml
     
@@ -393,7 +393,7 @@ Tìm đến dòng 111 sửa 1000m  thành 500m
 
 ### kibana
 
-    curl -LO https://github.com/letran3691/K8S/blob/main/LAB/kivalues.yaml
+    curl -LO https://raw.githubusercontent.com/letran3691/K8S/main/LAB/kivalues.yaml
 
     vim kivalues.yaml
 
