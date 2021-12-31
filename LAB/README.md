@@ -307,7 +307,7 @@ truy cập thử vào IP LoadBalancer
 
 ### Fluent
 
-    curl -LO https://raw.githubusercontent.com/letran3691/K8S/main/kubesphere/fluentd-ds-rbac.yaml
+    curl -LO https://raw.githubusercontent.com/letran3691/K8S/main/LAB/fluentd-ds-rbac.yaml
     
     vim fluentd-ds-rbac.yaml
     
