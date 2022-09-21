@@ -412,7 +412,7 @@ sau khi deploy xong nhớ ktra lại
 
 ### Metricbeat
 
-#### Metrics-server
+#### Metrics-server (version 3.8.2)
 
     helm repo add metrics-server https://kubernetes-sigs.github.io/metrics-server/
 
@@ -420,7 +420,7 @@ sau khi deploy xong nhớ ktra lại
 
     vim metrics-server/values.yaml
 
-   tìm đến dòng 76 và thêm vào
+   tìm đến dòng 83 và thêm vào
 
     - --kubelet-insecure-tls
     
