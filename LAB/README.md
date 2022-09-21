@@ -78,8 +78,8 @@ lỗi failed to parse kernel config: unable to load kernel module: "configs",
 
     https://helm.sh/docs/intro/install/
     
-    curl -LO https://get.helm.sh/helm-v3.7.0-rc.3-linux-amd64.tar.gz
-    tar -xvf helm-v3.7.0-rc.3-linux-amd64.tar.gz && cp linux-amd64/helm /usr/local/bin/
+    curl -LO curl -LO https://get.helm.sh/helm-v3.10.0-rc.1-linux-amd64.tar.gz
+    tar -xvf helm-v3.10.0-rc.1-linux-amd64.tar.gz && cp linux-amd64/helm /usr/local/bin/
 
 ## <a name="II"><a/>**II: Sửa coredns**
 
