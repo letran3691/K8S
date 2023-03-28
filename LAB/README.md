@@ -380,7 +380,7 @@ Ktra lai
 
 ### FileBeat
 
-    helm pull --version 7.10.0 elastic/filebeat && tar -xvf filebeat-7.10.0.tgz
+    helm pull --version 7.8.0 elastic/filebeat && tar -xvf filebeat-7.8.0.tgz
 
     vim filebeat/values.yaml
 
