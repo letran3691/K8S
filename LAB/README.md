@@ -363,10 +363,10 @@ Dòng 9 và dòng 12 sửa thành 500m
 
     mkdir ELK && cd ELK
 
-    helm pull --version 7.8.0 elastic/elasticsearch && tar -xvf elasticsearch-7.8.0.tgz
+    helm pull --version 7.17.3 elastic/elasticsearch && tar -xvf elasticsearch-7.17.3.tgz
 
     vi elasticsearch/values.yaml
-  Tìm đến dòng 95 sửa 30Gi thành 3Gi  
+  Tìm đến dòng 103 sửa 30Gi thành 3Gi  
 
 ![image](https://user-images.githubusercontent.com/19284401/133391383-83b73d38-6cc7-4e1c-9d4c-cec8106fd7af.png)
 
@@ -380,7 +380,7 @@ Ktra lai
 
 ### FileBeat
 
-    helm pull --version 7.8.0 elastic/filebeat && tar -xvf filebeat-7.8.0.tgz
+    helm pull --version 7.17.3 elastic/filebeat && tar -xvf filebeat-7.17.3.tgz
 
     vim filebeat/values.yaml
 
@@ -399,11 +399,11 @@ Tìm đến dòng 111 sửa 1000m  thành 500m
 
 Đến dòng 2 đổi thành IP LoadBalancer của Elastic
 
-Đến dòng 5 đổi thành imageTag: "7.8.0"
+Đến dòng 5 đổi thành imageTag: "7.17.3"
 
 ![image](https://user-images.githubusercontent.com/19284401/133396574-84118b43-6f47-4ce6-9570-e0b756e2b29e.png)
 
-    helm install --version 7.8.0 kibana elastic/kibana -f kivalues.yaml
+    helm install --version 7.17.3 kibana elastic/kibana -f kivalues.yaml
 
 sau khi deploy xong nhớ ktra lại
 
@@ -430,7 +430,7 @@ sau khi deploy xong nhớ ktra lại
 
 #### Metricbeat
 
-    helm pull --version 7.8.0 elastic/metricbeat && tar -xvf metricbeat-7.8.0.tgz
+    helm pull --version 7.17.3 elastic/metricbeat && tar -xvf metricbeat-7.17.3.tgz
 
     vim metricbeat/values.yaml
 
@@ -448,9 +448,9 @@ thì hãy sửa lại toàn bộ các apiVersion: rbac.authorization.k8s.io/v1be
 
 #### Metricbeat Dashboard
 
-    curl -L -O https://artifacts.elastic.co/downloads/beats/metricbeat/metricbeat-7.8.0-x86_64.rpm
+    curl -L -O https://artifacts.elastic.co/downloads/beats/metricbeat/metricbeat-7.17.3-x86_64.rpm
 
-    rpm -vi metricbeat-7.8.0-x86_64.rpm
+    rpm -vi metricbeat-7.17.3-x86_64.rpm
 
     vim /etc/metricbeat/metricbeat.yml
 
