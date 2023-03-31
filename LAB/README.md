@@ -363,10 +363,10 @@ Dòng 9 và dòng 12 sửa thành 500m
 
     mkdir ELK && cd ELK
 
-    helm pull --version 7.17.3 elastic/elasticsearch && tar -xvf elasticsearch-7.17.3.tgz
+    helm pull --version 8.5.1 elastic/elasticsearch && tar -xvf elasticsearch-8.5.1.tgz
 
     vi elasticsearch/values.yaml
-  Tìm đến dòng 103 sửa 30Gi thành 3Gi  
+  Tìm đến dòng 112 sửa 30Gi thành 3Gi  
 
 ![image](https://user-images.githubusercontent.com/19284401/133391383-83b73d38-6cc7-4e1c-9d4c-cec8106fd7af.png)
 
@@ -380,7 +380,7 @@ Ktra lai
 
 ### FileBeat
 
-    helm pull --version 7.17.3 elastic/filebeat && tar -xvf filebeat-7.17.3.tgz
+    helm pull --version 8.5.1 elastic/filebeat && tar -xvf filebeat-8.5.1.tgz
 
     vim filebeat/values.yaml
 
@@ -404,10 +404,24 @@ Tìm đến dòng 111 sửa 1000m  thành 500m
 ![image](https://user-images.githubusercontent.com/19284401/133396574-84118b43-6f47-4ce6-9570-e0b756e2b29e.png)
 
     helm install --version 7.17.3 kibana elastic/kibana -f kivalues.yaml
+    
+    Khi install kibana có thể gặp thông báo lỗi:
+    "Error: uninstallation completed with 1 error(s): warning: Hook post-delete kibana/templates/post-delete-serviceaccount.yaml failed: serviceaccounts "post-delete-kibana-kibana" already exists"
+    
+    các giải quyết:
+        kubectl delete configmap kibana-kibana-helm-scripts
+        kubectl delete serviceaccount pre-install-kibana-kibana
+        kubectl delete roles pre-install-kibana-kibana
+        kubectl delete rolebindings pre-install-kibana-kibana
+        kubectl delete job pre-install-kibana-kibana
+        kubectl delete secrets kibana-kibana-es-token
+    nếu cài ở namespace riêng, nhớ thêm namespace vào cuối các câu lệnh
 
 sau khi deploy xong nhớ ktra lại
 
 ![image](https://user-images.githubusercontent.com/19284401/133423597-5c51ee09-de48-429c-9269-252533a03781.png)
+    
+        
 
 
 ### Metricbeat
