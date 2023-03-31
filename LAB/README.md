@@ -378,17 +378,21 @@ Ktra lai
 
 ![image](https://user-images.githubusercontent.com/19284401/133392800-47fa85e6-8816-4cdd-9b0e-a33a0b80fcdb.png)
 
+### Lostash
+    curl -LO https://raw.githubusercontent.com/letran3691/K8S/main/LAB/logstash.yml
+    
+    kubectl get secrets --namespace=default elasticsearch-master-credentials -ojsonpath='{.data.password}' | base64 -d
+    
+    đến dòng 44 và sửa lại password
+    
+    vim logstash.yml
+    
+    kubectl apply -f logstash.yml
+    
+
 ### FileBeat
 
-    helm pull --version 8.5.1 elastic/filebeat && tar -xvf filebeat-8.5.1.tgz
-
-    vim filebeat/values.yaml
-
-Tìm đến dòng 111 sửa 1000m  thành 500m
-
-![image](https://user-images.githubusercontent.com/19284401/133395492-7a19a455-bf36-4c68-a771-a28c3e51e812.png)
-
-    helm install filebeat filebeat
+    helm install filebeat elastic/filebeat -f beat_values.yaml
 
 
 ### kibana
@@ -398,12 +402,7 @@ Tìm đến dòng 111 sửa 1000m  thành 500m
     vim kivalues.yaml
 
 Đến dòng 2 đổi thành IP LoadBalancer của Elastic
-
-Đến dòng 5 đổi thành imageTag: "7.17.3"
-
-![image](https://user-images.githubusercontent.com/19284401/133396574-84118b43-6f47-4ce6-9570-e0b756e2b29e.png)
-
-    helm install --version 7.17.3 kibana elastic/kibana -f kivalues.yaml
+    helm install --version 8.5.1 kibana elastic/kibana
     
     Khi install kibana có thể gặp thông báo lỗi:
     "Error: uninstallation completed with 1 error(s): warning: Hook post-delete kibana/templates/post-delete-serviceaccount.yaml failed: serviceaccounts "post-delete-kibana-kibana" already exists"
