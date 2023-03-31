@@ -417,7 +417,8 @@ sau khi deploy xong nhớ ktra lại
 
 ![image](https://user-images.githubusercontent.com/19284401/133423597-5c51ee09-de48-429c-9269-252533a03781.png)
     
-        
+Login bằng user: elastic
+password lấy bằng:  kubectl get secrets --namespace=default elasticsearch-master-credentials -ojsonpath='{.data.password}' | base64 -d
 
 
 ### Metricbeat
