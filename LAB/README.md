@@ -399,9 +399,6 @@ Ktra lai
 
     curl -LO https://raw.githubusercontent.com/letran3691/K8S/main/LAB/kivalues.yaml
 
-    vim kivalues.yaml
-
-Đến dòng 2 đổi thành IP LoadBalancer của Elastic
     helm install --version 8.5.1 kibana elastic/kibana
     
     Khi install kibana có thể gặp thông báo lỗi:
