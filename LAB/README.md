@@ -370,7 +370,7 @@ Dòng 9 và dòng 12 sửa thành 500m
 
 ![image](https://user-images.githubusercontent.com/19284401/133391383-83b73d38-6cc7-4e1c-9d4c-cec8106fd7af.png)
 
-    helm install elasticsearch elasticsearch -f esvalues.yaml
+    helm install elasticsearch elasticsearch
 
 Ktra lai
 
@@ -397,8 +397,7 @@ Ktra lai
 
 ### kibana
 
-    curl -LO https://raw.githubusercontent.com/letran3691/K8S/main/LAB/kivalues.yaml
-
+   
     helm install --version 8.5.1 kibana elastic/kibana
     
     Khi install kibana có thể gặp thông báo lỗi:
@@ -441,7 +440,7 @@ password lấy bằng:  kubectl get secrets --namespace=default elasticsearch-ma
 
 #### Metricbeat
 
-    helm pull --version 7.17.3 elastic/metricbeat && tar -xvf metricbeat-7.17.3.tgz
+    helm pull --version 8.5.1 elastic/metricbeat && tar -xvf metricbeat-8.5.1.tgz
 
     vim metricbeat/values.yaml
 
@@ -459,9 +458,9 @@ thì hãy sửa lại toàn bộ các apiVersion: rbac.authorization.k8s.io/v1be
 
 #### Metricbeat Dashboard
 
-    curl -L -O https://artifacts.elastic.co/downloads/beats/metricbeat/metricbeat-7.17.3-x86_64.rpm
+    curl -L -O https://artifacts.elastic.co/downloads/beats/metricbeat/metricbeat-8.5.1-x86_64.rpm
 
-    rpm -vi metricbeat-7.17.3-x86_64.rpm
+    rpm -vi metricbeat-8.5.1-x86_64.rpm
 
     vim /etc/metricbeat/metricbeat.yml
 
