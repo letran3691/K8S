@@ -392,6 +392,8 @@ Ktra lai
 
 ### FileBeat
 
+    curl -LO https://raw.githubusercontent.com/letran3691/K8S/main/LAB/beat_values.yaml
+
     helm install filebeat elastic/filebeat -f beat_values.yaml
 
 
