@@ -212,10 +212,10 @@ Các bạn cứ hiểu đơn giản KubeSphere giống như dashboard của K8S 
 
 ![0_7R0fY_FNk4BN8uKf](https://user-images.githubusercontent.com/19284401/133020207-b231b875-6969-4f7b-a7fd-039769032030.png)
 
-    kubectl apply -f https://github.com/kubesphere/ks-installer/releases/download/v3.1.0/kubesphere-installer.yaml
-       
-    kubectl apply -f https://github.com/kubesphere/ks-installer/releases/download/v3.1.0/cluster-configuration.yaml
-    
+    kubectl apply -f https://github.com/kubesphere/ks-installer/releases/download/v3.3.2/kubesphere-installer.yaml
+
+    kubectl apply -f https://github.com/kubesphere/ks-installer/releases/download/v3.3.2/cluster-configuration.yaml
+           
     kubectl logs -n kubesphere-system $(kubectl get pod -n kubesphere-system -l app=ks-install -o jsonpath='{.items[0].metadata.name}') -f
 
 ## <a name="VI"><a/>**VI: Cài đặt metallb**
