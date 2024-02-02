@@ -39,9 +39,9 @@ data:
         # You can uncomment this line to investigate the generated events by the logstash.
         # stdout { codec => rubydebug }
         elasticsearch {
-            hosts => "http://10.84.102.53:9200"
-            user => "logk8s"
-            password => "123456a!"
+            hosts => "http://10.xxxx4.cccc.53:9200"
+            user => "lgfdgfdgd8s"
+            password => "1dsadsad!"
             #cacert => '/etc/logstash/certificates/ca.crt'
             template_overwrite => false
             manage_template => false
