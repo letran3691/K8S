@@ -185,13 +185,13 @@ spec:
         ]
         env:
         - name: ELASTICSEARCH_HOST
-          value: 10.84.102.53
+          value: 10.cc.1vv.53
         - name: ELASTICSEARCH_PORT
           value: "9200"
         - name: ELASTICSEARCH_USERNAME
-          value: logk8s
+          value: lgdfsgsds
         - name: ELASTICSEARCH_PASSWORD
-          value: "123456a!"
+          value: "1dsadsa56a!"
         - name: ELASTIC_CLOUD_ID
           value:
         - name: ELASTIC_CLOUD_AUTH
