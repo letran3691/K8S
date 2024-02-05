@@ -11,7 +11,7 @@ data:
     [FILTER]
         Name                kubernetes
         Match               *
-        Kube_URL            http://10.84.102.53:9200
+        Kube_URL            http://10.dsd.fdf.53:9200
         #Kube_CA_File        /var/run/secrets/kubernetes.io/serviceaccount/ca.crt
         #Kube_Token_File     /var/run/secrets/kubernetes.io/serviceaccount/token
         Kube_Tag_Prefix     kube.var.log.containers.
@@ -52,9 +52,9 @@ data:
         Logstash_Format On
         Replace_Dots    On
         Retry_Limit     False
-        Host            10.84.102.53
-        HTTP_User       logk8s
-        HTTP_Passwd     123456a!
+        Host            10.dsd.gf2.53
+        HTTP_User       lodsd8s
+        HTTP_Passwd     12gfdgfda!
         Suppress_Type_Name On
         Logstash_Prefix_Key $kubernetes['labels']['k8s-app']
         # format    json_lines
