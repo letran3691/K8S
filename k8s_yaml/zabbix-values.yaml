@@ -1,0 +1,17 @@
+zabbixAgent:
+  enable: true
+  env:
+  - name: ZBX_PASSIVESERVERS
+    value: 0.0.0.0/0
+zabbixProxy:
+  env:
+  - name: ZBX_HOSTNAME
+    value: zabbix-proxy
+  - name: ZBX_SERVER_HOST
+    value: 10.84.5.47:10051
+  - name: ZBX_CACHESIZE
+    value: 256M
+  - name: ZBX_VALUECACHESIZE
+    value: 128M
+  - name: ZBX_CONFIGREQUENCY
+    value: 60
