@@ -1,6 +1,7 @@
 #### create ClusterRoleBinding file
 
     vi example-cluster-admin.yaml
+```
 apiVersion: rbac.authorization.k8s.io/v1
 kind: ClusterRoleBinding
 metadata:
@@ -14,7 +15,7 @@ subjects:
   kind: Group
   name: example:masters
 
-
+```
     kubectl apply -f example-cluster-admin.yaml
 
     openssl genrsa -out trunglv.key 2048
@@ -25,8 +26,8 @@ subjects:
 
 #### create CertificateSigningRequest file
 
-  vi  CertificateSigningRequest.yaml
-
+    vi  CertificateSigningRequest.yaml
+```
 apiVersion: certificates.k8s.io/v1
 kind: CertificateSigningRequest
 metadata:
@@ -40,10 +41,10 @@ spec:
   - digital signature
   - key encipherment
   - client auth
-
-  kubectl apply -f CertificateSigningRequest.yaml
+```
+    kubectl apply -f CertificateSigningRequest.yaml
     
-  kubectl certificate approve trunglv-csr
+    kubectl certificate approve trunglv-csr
   
     KEY=`cat trunglv.key | base64 | tr -d '\n'`
     CERT=`kubectl get csr trunglv-csr -o jsonpath='{.status.certificate}'`
@@ -56,7 +57,7 @@ spec:
     echo $CERT
     echo
 
-
+```
 cat >> "$username".conf << END
 apiVersion: v1
 kind: Config
@@ -78,3 +79,4 @@ users:
     client-certificate-data: $client_cert
     client-key-data: $key
 END
+```
