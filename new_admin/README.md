@@ -2,7 +2,7 @@ Granting access to users
 
     kubectl get clusterroles
 
-note: ClusterRoleBindings grant a user, group, or service account a ClusterRole’s power across the entire cluster. Using kubectl, we can let a sample user “jane” perform basic actions in all namespaces by binding her to the “edit” ClusterRole:
+note: ClusterRoleBindings grant a user, group, or service account a ClusterRole’s power across the entire cluster. Using kubectl, we can let a sample user “trunglv” perform basic actions in all namespaces by binding her to the “edit” ClusterRole:
 
     kubectl create clusterrolebinding trunglv --clusterrole=edit --user=trunglv
 
