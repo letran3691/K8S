@@ -149,9 +149,9 @@ data:
 
     output.elasticsearch:
       
-      hosts: ['${ELASTICSEARCH_HOST:10.84.102.53}:${ELASTICSEARCH_PORT:9200}']
-      username: ${ELASTICSEARCH_USERNAME:logk8s}
-      password: ${ELASTICSEARCH_PASSWORD:123456a!}
+      hosts: ['${ELASTICSEARCH_HOST:10.4.72.53}:${ELASTICSEARCH_PORT:9200}']
+      username: ${ELASTICSEARCH_USERNAME:#####trunglv######logk8s##########fdawdsad}
+      password: ${ELASTICSEARCH_PASSWORD:###123456########123456a!#########dsadwdsadw}
       indices:
         - index: '%{[index_prefix]}-filebeat-%{[agent.version]}-%{[kubernetes.namespace]}-%{+YYYY.MM.dd}'
 
