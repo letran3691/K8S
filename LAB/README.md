@@ -506,7 +506,7 @@ deletionPolicy: Retain
 
     helm install k10 kasten/k10 -n kasten-io --set auth.basicAuth.enabled=true --set auth.basicAuth.htpasswd='infa:$apr1$flmesq5v$2MIEFQ2CWmXfLSFjESIPf0' --set {nodeSelector="service=app"}
 
-vi pvc_k10.yaml
+    vi pvc_k10.yaml
 
 apiVersion: v1
 kind: PersistentVolumeClaim
