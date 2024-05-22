@@ -482,12 +482,12 @@ dòng 94 đổi thành ip LoadBalancer của Elastic
 ![2](https://user-images.githubusercontent.com/19284401/133422399-8be7c821-1bc3-4f6f-8899-87d69f6077f3.gif)
 
 #### deploy backup with kasten
-helm repo add kasten https://charts.kasten.io/
+    helm repo add kasten https://charts.kasten.io/
 
-helm repo add piraeus-charts https://piraeus.io/helm-charts/
-helm install snapshot-controller piraeus-charts/snapshot-controller
+    helm repo add piraeus-charts https://piraeus.io/helm-charts/
+    helm install snapshot-controller piraeus-charts/snapshot-controller
 
-vi volumesclass.yaml
+    vi volumesclass.yaml
 
 apiVersion: snapshot.storage.k8s.io/v1
 kind: VolumeSnapshotClass
@@ -498,13 +498,13 @@ metadata:
   name: csi-nfs-snapclass
 deletionPolicy: Retain
 
-kubectl apply -f volumesclass.yaml
+    kubectl apply -f volumesclass.yaml
 
-curl -s https://docs.kasten.io/tools/k10_primer.sh | bash
+    curl -s https://docs.kasten.io/tools/k10_primer.sh | bash
 
-kubectl create ns kasten-io
+    kubectl create ns kasten-io
 
-helm install k10 kasten/k10 -n kasten-io --set auth.basicAuth.enabled=true --set auth.basicAuth.htpasswd='infa:$apr1$flmesq5v$2MIEFQ2CWmXfLSFjESIPf0' --set {nodeSelector="service=app"}
+    helm install k10 kasten/k10 -n kasten-io --set auth.basicAuth.enabled=true --set auth.basicAuth.htpasswd='infa:$apr1$flmesq5v$2MIEFQ2CWmXfLSFjESIPf0' --set {nodeSelector="service=app"}
 
 vi pvc_k10.yaml
 
@@ -521,7 +521,7 @@ spec:
   storageClassName: nfs-csi
 
 
-kubectl apply -f pvc_k10.yaml
+    kubectl apply -f pvc_k10.yaml
 
 
 
