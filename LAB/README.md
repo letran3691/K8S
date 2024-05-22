@@ -523,12 +523,3 @@ dòng 94 đổi thành ip LoadBalancer của Elastic
 
 
     kubectl apply -f pvc_k10.yaml
-
-
-
-
-
-
-
-=======
->>>>>>> ba3e36c86a254aff26fa10dc2927389ea5ba9e1b
