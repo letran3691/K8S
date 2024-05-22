@@ -480,6 +480,7 @@ dòng 94 đổi thành ip LoadBalancer của Elastic
 
 ![1](https://user-images.githubusercontent.com/19284401/133421971-700bfe7f-9183-47b0-9eb6-774743aa145c.gif)
 ![2](https://user-images.githubusercontent.com/19284401/133422399-8be7c821-1bc3-4f6f-8899-87d69f6077f3.gif)
+<<<<<<< HEAD
 
 #### deploy backup with kasten
     helm repo add kasten https://charts.kasten.io/
@@ -529,3 +530,5 @@ dòng 94 đổi thành ip LoadBalancer của Elastic
 
 
 
+=======
+>>>>>>> ba3e36c86a254aff26fa10dc2927389ea5ba9e1b
