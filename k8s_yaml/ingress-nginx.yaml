@@ -322,13 +322,13 @@ apiVersion: v1
 data:
   allow-snippet-annotations: "true"
   log-format-escape-json: "true"
-  log-format-upstream: '{"timestamp": "$time_iso8601", "requestID": "$req_id", "proxyUpstreamName":
-    "$proxy_upstream_name", "proxyAlternativeUpstreamName": "$proxy_alternative_upstream_name","upstreamStatus":
-    "$upstream_status", "upstreamAddr": "$upstream_addr","httpRequest":{"requestMethod":
-    "$request_method", "requestUrl": "$host$request_uri", "status": $status,"requestSize":
-    "$request_length", "responseSize": "$upstream_response_length", "userAgent": "$http_user_agent",
-    "remoteIp": "$remote_addr", "referer": "$http_referer", "latency": "$upstream_response_time s",
-    "protocol":"$server_protocol"}}'
+  log-format-upstream: '{"timestamp": "$time_iso8601","cookies" : "$http_cookie","ssl_cipher" : "$ssl_cipher","ssl_protocol" : "$ssl_protocol","server_port" : "$server_port","pipe" : "$pipe","upstream_header_time" : "$upstream_header_time","upstream_connect_time" : "$upstream_connect_time","upstream_response_time" : "$upstream_response_time","request_time" : "$request_time","body_bytes_sent" : "$body_bytes_sent","request" : "$request","requestID": "$req_id","host" : "$host","remote_user" : "$remote_user","proxyUpstreamName":
+    "$proxy_upstream_name","time_local" : "$time_local","request_uri" : "$request_uri","proxyAlternativeUpstreamName": "$proxy_alternative_upstream_name","upstreamStatus":
+    "$upstream_status","upstream_addr":"$upstream_addr", "upstreamAddr": "$upstream_addr","httpRequest":{"requestMethod":
+    "$request_method","request_method" : "$request_method","requestUrl": "$host$request_uri","status": $status,"requestSize":
+    "$request_length","responseSize": "$upstream_response_length","userAgent": "$http_user_agent",
+    "remoteIp": "$remote_addr","http_referer": "$http_referer","latency": "$upstream_response_time
+    s", "server_protocol":"$server_protocol"}}'
 kind: ConfigMap
 metadata:
   labels:
