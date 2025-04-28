@@ -11,13 +11,15 @@
 
     curl -L https://github.com/projectcalico/calico/releases/download/v3.29.3/calicoctl-linux-amd64 -o calicoctl
     chmod +x calicoctl && mv /usr/local/sbin/
-chú ý: phiên bản image và phiên bản binary phải giống này
-    
+******_chú ý: phiên bản image và phiên bản binary phải giống này_******
+
+    calicoctl apply -f bgp-configuration.yaml
+    calicoctl apply -f bgp-peer.yaml
     calicoctl version
     calicoctl get nodes
     calicoctl get workloadendpoints
     calicoctl get bgppeer
-    calicoctl get bgppeer
+    calicoctl get bgpconfig
 
 ![img.png](image/0.png)
 By default, calicoctl will attempt to read from the Kubernetes API using the default kubeconfig located at $(HOME)/.kube/config.
