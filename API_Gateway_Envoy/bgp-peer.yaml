@@ -1,0 +1,8 @@
+apiVersion: projectcalico.org/v3
+kind: BGPPeer
+metadata:
+  name: router-peer
+spec:
+  peerIP: 10.88.0.254 # IP router phicycal
+  peerAS: 65000
+  asNumber: 64512      # ASN of router

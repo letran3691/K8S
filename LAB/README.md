@@ -218,7 +218,7 @@ Các bạn cứ hiểu đơn giản KubeSphere giống như dashboard của K8S 
            
    kubectl logs -n kubesphere-system $(kubectl get pod -n kubesphere-system -l 'app in (ks-install, ks-installer)' -o jsonpath='{.items[0].metadata.name}') -f
 
-## <a name="VI"><a/>**VI: Cài đặt metallb**
+## <a name="VI"><a/>**VI: Cài đặt metallb Layer 3 (BGP)**
 
     - **Chú ý thay đúng dải IP**    
 

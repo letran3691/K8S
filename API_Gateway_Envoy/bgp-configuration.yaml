@@ -1,0 +1,8 @@
+apiVersion: projectcalico.org/v3
+kind: BGPConfiguration
+metadata:
+  name: default
+spec:
+  logSeverityScreen: Info
+  asNumber: 64512  # ASN off cluster
+  nodeToNodeMeshEnabled: true  # turn off mesh if use Route Reflector
