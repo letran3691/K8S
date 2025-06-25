@@ -10,7 +10,7 @@
 #### tải calicoctl as a binary về master node
 
     curl -L https://github.com/projectcalico/calico/releases/download/v3.29.3/calicoctl-linux-amd64 -o calicoctl
-    chmod +x calicoctl && mv /usr/local/sbin/
+    chmod +x calicoctl && mv calicoctl /usr/local/sbin/
 ******_chú ý: phiên bản image và phiên bản binary phải giống này_******
 
     calicoctl apply -f bgp-configuration.yaml
@@ -58,7 +58,7 @@ refer: https://docs.tigera.io/calico/latest/operations/calicoctl/configure/kdd
 
 ### enable audit logs 
 
-    cat > /etc/kubernetes/audit-policy.yamla <<EOF
+    cat > /etc/kubernetes/audit-policy.yaml <<EOF
     apiVersion: audit.k8s.io/v1
     kind: Policy
     rules:
